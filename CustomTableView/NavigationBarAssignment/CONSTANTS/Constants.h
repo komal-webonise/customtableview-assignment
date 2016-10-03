@@ -4,7 +4,8 @@
 
 #define STORYBOARD_ADDPRODUCTS_VIEWCONTROLLER  @"AddProductViewController"
 #define STORYBOARD_SHOWDETAILS_VIEWCONTROLLER @"ShowDetailsViewController"
-#define CUSTOM_TABLE_VIEW_CELL @"TableViewCell"
+#define STORYBOARD_LISTPRODUCTS_VIEWCONTROLLER @"ListProductsViewController"
+#define CUSTOM_TABLE_VIEW_CELL @"ProductCell"
 #define IMAGE_SAMPLE @"imageSample"
 #define CLEAR_STRING @""
 #define ALPHABETIC_REGULAR_EXPRESSION @"[a-zA-Z]+"

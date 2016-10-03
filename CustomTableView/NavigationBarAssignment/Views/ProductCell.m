@@ -6,9 +6,9 @@
 //  Copyright © 2016 komal lunkad. All rights reserved.
 //
 
-#import "TableViewCell.h"
+#import "ProductCell.h"
 
-@implementation TableViewCell
+@implementation ProductCell
 @synthesize labelProductName,labelProductPrice;
 
 - (void)awakeFromNib {
@@ -18,8 +18,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

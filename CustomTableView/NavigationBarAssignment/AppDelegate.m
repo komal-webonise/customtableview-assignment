@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ListProductsViewController.h"
+#import "Constants.h"
 
 @interface AppDelegate ()
 @end
@@ -20,12 +21,10 @@
     // Override point for customization after application launch.
     arrayProducts=[[NSMutableArray alloc]init];
     UIStoryboard *storyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-    UIViewController *viewController = [storyBoard instantiateViewControllerWithIdentifier:@"ListProductsViewController"];
-    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:viewController];
+    UIViewController *listProductsviewController = [storyBoard instantiateViewControllerWithIdentifier:STORYBOARD_LISTPRODUCTS_VIEWCONTROLLER];
+    UINavigationController *navigationController = [[UINavigationController alloc]initWithRootViewController:listProductsviewController];
     window =[[UIWindow alloc]init];
     [window setRootViewController:navigationController];
-    
-    
     return YES;
 }
 

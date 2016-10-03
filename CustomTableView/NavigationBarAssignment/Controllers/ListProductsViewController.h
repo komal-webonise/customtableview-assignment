@@ -10,6 +10,6 @@
 
 @interface ListProductsViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (strong, nonatomic) IBOutlet UITableView *tableViewListProducts;
+//@property (strong, nonatomic) IBOutlet UITableView *tableViewListProducts;
 @end
 

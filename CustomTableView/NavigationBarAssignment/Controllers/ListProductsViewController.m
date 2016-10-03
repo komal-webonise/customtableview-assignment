@@ -11,17 +11,17 @@
 #import "AppDelegate.h"
 #import "Products.h"
 #import "ShowDetailsViewController.h"
-#include "TableViewCell.h"
+#include "ProductCell.h"
 #import "Constants.h"
 
 @interface ListProductsViewController (){
+    IBOutlet UITableView *tableViewListProducts;
     UIView *viewNoItem;
     UIButton *buttonListProduct;
 }
 @end
 
 @implementation ListProductsViewController
-@synthesize tableViewListProducts;
 AppDelegate *appDelegate;
 
 - (void)viewDidLoad {
@@ -37,15 +37,14 @@ AppDelegate *appDelegate;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    [self.tableViewListProducts reloadData];
+    [self->tableViewListProducts reloadData];
 }
 
 /** Navigates to screen add product details
  */
 -(void)navigateToAddProductsScreen {
     AddProductViewController *addProductViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ADDPRODUCTS_VIEWCONTROLLER];
-    [self pushViewController:addProductViewController];
-}
+    [self.navigationController pushViewController:addProductViewController animated:YES];}
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -60,7 +59,7 @@ AppDelegate *appDelegate;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *customCellIdentifier = CUSTOM_TABLE_VIEW_CELL ;
-    TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
+    ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
     
     if (cell == nil){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:customCellIdentifier owner:self options:nil];
@@ -73,17 +72,12 @@ AppDelegate *appDelegate;
 
 }
 
-/** Navigates to next screen
- */
--(void)pushViewController:(UIViewController*)controllerObject{
-    [self.navigationController pushViewController:controllerObject animated:YES];
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Products *product = [appDelegate.arrayProducts objectAtIndex:indexPath.row];
     ShowDetailsViewController *showDetailsViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_SHOWDETAILS_VIEWCONTROLLER];
     showDetailsViewController.product = product;
-    [self pushViewController:showDetailsViewController];
+    [self.navigationController pushViewController:showDetailsViewController animated:YES];
+
    }
 @end
