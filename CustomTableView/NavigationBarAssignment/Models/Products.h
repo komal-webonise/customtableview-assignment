@@ -7,12 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
-
-
 @interface Products : NSObject
 
 @property (readwrite) NSString *productName;
 @property (readwrite) float productPrice;
 @property (readwrite) NSString *productCategory;
+
 @end

@@ -12,16 +12,22 @@
 #import "Products.h"
 #import "ShowDetailsViewController.h"
 #include "TableViewCell.h"
+#import "Constants.h"
+
 @interface ListProductsViewController (){
     UIView *viewNoItem;
     UIButton *buttonListProduct;
 }
 @end
+
 @implementation ListProductsViewController
 @synthesize tableViewListProducts;
+AppDelegate *appDelegate;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *barButtonItemAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addProducts)];
+    appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
+    UIBarButtonItem *barButtonItemAdd = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(navigateToAddProductsScreen)];
     self.navigationController.topViewController.navigationItem.rightBarButtonItem = barButtonItemAdd;
     
 }
@@ -30,50 +36,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-   // [self displayViewsList];
-}
 -(void) viewWillAppear:(BOOL)animated{
     [self.tableViewListProducts reloadData];
-    //[viewNoItem removeFromSuperview];
 }
+
 /** Navigates to screen add product details
  */
--(void)addProducts {
-    AddProductViewController *addProductViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"AddProductViewController"];
-    [self.navigationController pushViewController:addProductViewController animated:YES];
+-(void)navigateToAddProductsScreen {
+    AddProductViewController *addProductViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_ADDPRODUCTS_VIEWCONTROLLER];
+    [self pushViewController:addProductViewController];
 }
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     return [appDelegate.arrayProducts count];
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 130;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *customCellIdentifier = @"TableViewCell" ;
+    static NSString *customCellIdentifier = CUSTOM_TABLE_VIEW_CELL ;
     TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
     
     if (cell == nil){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:customCellIdentifier owner:self options:nil];
         cell = [nib objectAtIndex:0] ;
     }
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
     cell.labelProductName.text = [appDelegate.arrayProducts[indexPath.row] productName];
     cell.labelProductPrice.text = [NSString stringWithFormat:@"%0.2f", [appDelegate.arrayProducts[indexPath.row] productPrice]];
-    cell.imageViewPhoto.image=[UIImage imageNamed:@"imageSample"];
+    cell.imageViewPhoto.image = [UIImage imageNamed:IMAGE_SAMPLE];
     return cell;
 
 }
+
+/** Navigates to next screen
+ */
+-(void)pushViewController:(UIViewController*)controllerObject{
+    [self.navigationController pushViewController:controllerObject animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AppDelegate *appDelegate = (AppDelegate*)[[UIApplication sharedApplication] delegate];
-    Products *product=[appDelegate.arrayProducts objectAtIndex:indexPath.row];
-    ShowDetailsViewController *showDetailsViewController=[self.storyboard instantiateViewControllerWithIdentifier:@"ShowDetailsViewController"];
-    showDetailsViewController.product=product;
-    [self.navigationController pushViewController:showDetailsViewController animated:YES];
-}
+    Products *product = [appDelegate.arrayProducts objectAtIndex:indexPath.row];
+    ShowDetailsViewController *showDetailsViewController = [self.storyboard instantiateViewControllerWithIdentifier:STORYBOARD_SHOWDETAILS_VIEWCONTROLLER];
+    showDetailsViewController.product = product;
+    [self pushViewController:showDetailsViewController];
+   }
 @end

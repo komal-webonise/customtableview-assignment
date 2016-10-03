@@ -10,6 +10,7 @@
 
 @implementation TableViewCell
 @synthesize labelProductName,labelProductPrice;
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

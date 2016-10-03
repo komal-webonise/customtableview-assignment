@@ -11,6 +11,4 @@
 
 @interface ShowDetailsViewController : UIViewController
 @property (nonatomic,strong) Products *product;
-
-
 @end
