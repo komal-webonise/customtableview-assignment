@@ -59,17 +59,16 @@ AppDelegate *appDelegate;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *customCellIdentifier = CUSTOM_TABLE_VIEW_CELL ;
-    ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
+    ProductCell *productCell = [tableView dequeueReusableCellWithIdentifier:customCellIdentifier];
     
-    if (cell == nil){
+    if (productCell == nil){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:customCellIdentifier owner:self options:nil];
-        cell = [nib objectAtIndex:0] ;
+        productCell = [nib objectAtIndex:0] ;
     }
-    cell.labelProductName.text = [appDelegate.arrayProducts[indexPath.row] productName];
-    cell.labelProductPrice.text = [NSString stringWithFormat:@"%0.2f", [appDelegate.arrayProducts[indexPath.row] productPrice]];
-    cell.imageViewPhoto.image = [UIImage imageNamed:IMAGE_SAMPLE];
-    return cell;
-
+    productCell.labelProductName.text = [appDelegate.arrayProducts[indexPath.row] productName];
+    productCell.labelProductPrice.text = [NSString stringWithFormat:@"%0.2f", [appDelegate.arrayProducts[indexPath.row] productPrice]];
+    productCell.imageViewPhoto.image = [UIImage imageNamed:IMAGE_SAMPLE];
+    return productCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
